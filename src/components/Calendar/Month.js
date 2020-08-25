@@ -3,11 +3,9 @@ import styles from './Calendar.module.css';
 import Week from './Week';
 
 class Month extends Component {
-  monthToDiv = (chosenMonth) => {
+  monthToDiv = (chosenMonth, thisMonthArr) => {
     //get number of weeks in month
-    const year = chosenMonth.format('YYYY');
-    const month = chosenMonth.format('MM');
-    const numOfWeeks = this.getNumWeeksForMonth(year, month);
+    const numOfWeeks = thisMonthArr.length;
 
     //main code
     let weeksElements = [];
@@ -20,6 +18,7 @@ class Month extends Component {
             chosenMonth={chosenMonth}
             weekIndex={week}
             currentDate={currentDate}
+            thisMonthArr={thisMonthArr}
           />
         </div>
       );
@@ -27,17 +26,10 @@ class Month extends Component {
     return <>{weeksElements}</>;
   };
 
-  getNumWeeksForMonth = (year, month) => {
-    //Get the number of weeks in month (thanks stackoverflow.com)
-    const date = new Date(year, month - 1, 1);
-    const day = date.getDay();
-    const numDaysInMonth = new Date(year, month, 0).getDate();
-    return Math.ceil((numDaysInMonth + day) / 7);
-  };
-
   render() {
-    const { chosenMonth } = this.props;
-    return <>{this.monthToDiv(chosenMonth)}</>;
+    const { chosenMonth, thisMonthArr } = this.props;
+    console.log(thisMonthArr);
+    return <>{this.monthToDiv(chosenMonth, thisMonthArr)}</>;
   }
 }
 

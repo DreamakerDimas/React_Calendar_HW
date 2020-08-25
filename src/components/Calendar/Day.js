@@ -16,10 +16,10 @@ class Day extends Component {
 
   checkDayOfMonth = (chosenMonth, weekIndex, dayIndex) => {
     //is that day belong to chosenMonth?
-    if (weekIndex === 0 && this.getDay(chosenMonth, weekIndex, dayIndex) > 7) {
+    if (weekIndex === 0 && this.getDay(chosenMonth, weekIndex, dayIndex) > 10) {
       return false;
     } else if (
-      weekIndex === this.getLastWeekIndex(chosenMonth) &&
+      weekIndex === this.props.thisMonthArr.length - 1 &&
       this.getDay(chosenMonth, weekIndex, dayIndex) < 20
     ) {
       return false;
@@ -28,16 +28,10 @@ class Day extends Component {
     return true;
   };
 
-  getLastWeekIndex = (chosenMonth) => {
-    const weekNum =
-      chosenMonth.endOf('month').week() - chosenMonth.startOf('month').week();
-    return weekNum;
-  };
-
   getDay = (chosenMonth, weekIndex, dayIndex) => {
-    const { getDaysOfWeek } = this.props;
+    const { thisMonthArr } = this.props;
     //get day from week array
-    const week = getDaysOfWeek(chosenMonth, weekIndex);
+    const week = thisMonthArr[weekIndex];
     return week[dayIndex];
   };
 
